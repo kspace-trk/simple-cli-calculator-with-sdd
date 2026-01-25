@@ -16,5 +16,8 @@
     "url": "https://github.com/kspace-trk/simple-cli-calculator-with-sdd/issues"
   },
   "homepage": "https://github.com/kspace-trk/simple-cli-calculator-with-sdd#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^25.0.10"
+  }
 }
