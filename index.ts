@@ -5,7 +5,7 @@ import * as readline from 'readline/promises';
  * @param rl - readline/promises モジュール
  * @returns readline.Interface
  */
-const createReadlineInterface = (rl: typeof readline): readline.Interface => {
+export const createReadlineInterface = (rl: typeof readline): readline.Interface => {
   return rl.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -17,6 +17,6 @@ const createReadlineInterface = (rl: typeof readline): readline.Interface => {
  * @param input - 確認する値
  * @returns 整数の場合は true, そうでない場合は false
  */
-const isInteger = (input: unknown): boolean => {
+export const isInteger = (input: unknown): boolean => {
   return Number.isInteger(input);
 };
