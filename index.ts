@@ -20,3 +20,16 @@ export const createReadlineInterface = (rl: typeof readline): readline.Interface
 export const isInteger = (input: unknown): boolean => {
   return Number.isInteger(input);
 };
+
+/**
+ * 数字が指定した範囲内かどうかを確認する
+ * @param params - num, min, max を key に持つオブジェクト
+ * @param params.num - 確認対象の数字
+ * @param params.min - 範囲の最小値
+ * @param params.max - 範囲の最大値
+ * @returns 範囲内の場合は true, そうでない場合は false
+ */
+export const isWithinRange = (params: { num: number; min: number; max: number }): boolean => {
+  const { num, min, max } = params;
+  return num >= min && num <= max;
+};
