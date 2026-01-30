@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isInteger, isWithinRange } from "./index";
+import { isInteger, isWithinRange, validateInput } from "./index";
 
 describe("isInteger", () => {
   it("整数の場合は true を返す", () => {
@@ -38,5 +38,30 @@ describe("isWithinRange", () => {
     expect(isWithinRange({ num: 0, min: 1, max: 10 })).toBe(false);
     expect(isWithinRange({ num: 11, min: 1, max: 10 })).toBe(false);
     expect(isWithinRange({ num: -1, min: 0, max: 5 })).toBe(false);
+  });
+});
+
+describe("validateInput", () => {
+  it("有効な入力の場合は isValid: true を返す", () => {
+    expect(validateInput("1")).toEqual({ isValid: true, message: "" });
+    expect(validateInput("2")).toEqual({ isValid: true, message: "" });
+    expect(validateInput("3")).toEqual({ isValid: true, message: "" });
+    expect(validateInput("4")).toEqual({ isValid: true, message: "" });
+  });
+
+  it("空の入力の場合は isValid: false とエラーメッセージを返す", () => {
+    expect(validateInput("")).toEqual({ isValid: false, message: "入力が空です" });
+    expect(validateInput("   ")).toEqual({ isValid: false, message: "入力が空です" });
+  });
+
+  it("整数でない場合は isValid: false とエラーメッセージを返す", () => {
+    expect(validateInput("1.5")).toEqual({ isValid: false, message: "整数を入力してください" });
+    expect(validateInput("abc")).toEqual({ isValid: false, message: "整数を入力してください" });
+  });
+
+  it("範囲外の場合は isValid: false とエラーメッセージを返す", () => {
+    expect(validateInput("0")).toEqual({ isValid: false, message: "1から4の範囲で入力してください" });
+    expect(validateInput("5")).toEqual({ isValid: false, message: "1から4の範囲で入力してください" });
+    expect(validateInput("-1")).toEqual({ isValid: false, message: "1から4の範囲で入力してください" });
   });
 });
