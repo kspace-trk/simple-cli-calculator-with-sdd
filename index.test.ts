@@ -44,9 +44,8 @@ describe("isWithinRange", () => {
 describe("validateInput", () => {
   it("有効な入力の場合は isValid: true を返す", () => {
     expect(validateInput("1")).toEqual({ isValid: true, message: "" });
-    expect(validateInput("2")).toEqual({ isValid: true, message: "" });
-    expect(validateInput("3")).toEqual({ isValid: true, message: "" });
-    expect(validateInput("4")).toEqual({ isValid: true, message: "" });
+    expect(validateInput("500")).toEqual({ isValid: true, message: "" });
+    expect(validateInput("999")).toEqual({ isValid: true, message: "" });
   });
 
   it("空の入力の場合は isValid: false とエラーメッセージを返す", () => {
@@ -60,9 +59,9 @@ describe("validateInput", () => {
   });
 
   it("範囲外の場合は isValid: false とエラーメッセージを返す", () => {
-    expect(validateInput("0")).toEqual({ isValid: false, message: "1から4の範囲で入力してください" });
-    expect(validateInput("5")).toEqual({ isValid: false, message: "1から4の範囲で入力してください" });
-    expect(validateInput("-1")).toEqual({ isValid: false, message: "1から4の範囲で入力してください" });
+    expect(validateInput("0")).toEqual({ isValid: false, message: "1から999の範囲で入力してください" });
+    expect(validateInput("1000")).toEqual({ isValid: false, message: "1から999の範囲で入力してください" });
+    expect(validateInput("-1")).toEqual({ isValid: false, message: "1から999の範囲で入力してください" });
   });
 });
 
@@ -80,13 +79,13 @@ describe("getValidNumber", () => {
   it("無効な値の後に有効な値が入力されたら再入力を求める", async () => {
     const mockQuestion = vi.fn()
       .mockResolvedValueOnce("invalid")
-      .mockResolvedValueOnce("5")
-      .mockResolvedValueOnce("3");
+      .mockResolvedValueOnce("1000")
+      .mockResolvedValueOnce("500");
     const mockReadline = { question: mockQuestion } as any;
 
     const result = await getValidNumber({ readline: mockReadline, prompt: "入力: " });
 
-    expect(result).toBe(3);
+    expect(result).toBe(500);
     expect(mockQuestion).toHaveBeenCalledTimes(3);
   });
 });
