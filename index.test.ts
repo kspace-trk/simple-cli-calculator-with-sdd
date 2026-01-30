@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { isInteger, isWithinRange, validateInput, getValidNumber } from "./index";
+import { isInteger, isWithinRange, validateInput, getValidNumber, calculateSum } from "./index";
 
 describe("isInteger", () => {
   it("整数の場合は true を返す", () => {
@@ -87,5 +87,14 @@ describe("getValidNumber", () => {
 
     expect(result).toBe(500);
     expect(mockQuestion).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe("calculateSum", () => {
+  it("2つの数値の合計を返す", () => {
+    expect(calculateSum({ num1: 1, num2: 2 })).toBe(3);
+    expect(calculateSum({ num1: 100, num2: 200 })).toBe(300);
+    expect(calculateSum({ num1: -5, num2: 10 })).toBe(5);
+    expect(calculateSum({ num1: 0, num2: 0 })).toBe(0);
   });
 });
