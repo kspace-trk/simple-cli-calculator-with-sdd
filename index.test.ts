@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { isInteger, isWithinRange, validateInput, getValidNumber, calculateSum } from "./index";
+import { isInteger, isWithinRange, validateInput, getValidNumber, calculateSum, main } from "./index";
 
 describe("isInteger", () => {
   it("整数の場合は true を返す", () => {
@@ -96,5 +96,29 @@ describe("calculateSum", () => {
     expect(calculateSum({ num1: 100, num2: 200 })).toBe(300);
     expect(calculateSum({ num1: -5, num2: 10 })).toBe(5);
     expect(calculateSum({ num1: 0, num2: 0 })).toBe(0);
+  });
+});
+
+describe("main", () => {
+  it("入力を受け取り、合計値を表示する", async () => {
+    const mockQuestion = vi.fn()
+      .mockResolvedValueOnce("10")
+      .mockResolvedValueOnce("20");
+    const mockClose = vi.fn();
+    const mockCreateInterface = vi.fn().mockReturnValue({
+      question: mockQuestion,
+      close: mockClose,
+    });
+    const mockReadline = { createInterface: mockCreateInterface } as any;
+    const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => { });
+
+    await main(mockReadline);
+
+    expect(mockQuestion).toHaveBeenCalledWith("一つ目の値を入力してください: ");
+    expect(mockQuestion).toHaveBeenCalledWith("二つ目の値を入力してください: ");
+    expect(consoleSpy).toHaveBeenCalledWith("合計値は: 30 です！");
+    expect(mockClose).toHaveBeenCalled();
+
+    consoleSpy.mockRestore();
   });
 });

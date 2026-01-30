@@ -77,3 +77,26 @@ export const calculateSum = ({
 }): number => {
   return num1 + num2;
 };
+
+export const main = async (rl: typeof readline): Promise<void> => {
+  const readlineInterface = createReadlineInterface(rl);
+
+  const num1 = await getValidNumber({
+    readline: readlineInterface,
+    prompt: "一つ目の値を入力してください: ",
+  });
+
+  const num2 = await getValidNumber({
+    readline: readlineInterface,
+    prompt: "二つ目の値を入力してください: ",
+  });
+
+  const sum = calculateSum({ num1, num2 });
+
+  console.log(`合計値は: ${sum} です！`);
+
+  readlineInterface.close();
+};
+
+// プログラム実行
+main(readline);
