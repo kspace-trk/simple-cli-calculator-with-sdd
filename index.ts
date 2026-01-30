@@ -22,3 +22,29 @@ export const isWithinRange = ({
 }): boolean => {
   return num >= min && num <= max;
 };
+
+export type ValidationResult = {
+  isValid: boolean;
+  message: string;
+};
+
+export const validateInput = (input: string): ValidationResult => {
+  // 空チェック
+  if (input.trim() === "") {
+    return { isValid: false, message: "入力が空です" };
+  }
+
+  const num = Number(input);
+
+  // 整数チェック
+  if (!isInteger(num)) {
+    return { isValid: false, message: "整数を入力してください" };
+  }
+
+  // 範囲チェック (1〜4)
+  if (!isWithinRange({ num, min: 1, max: 4 })) {
+    return { isValid: false, message: "1から4の範囲で入力してください" };
+  }
+
+  return { isValid: true, message: "" };
+};
