@@ -4,7 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,11 @@
   "homepage": "https://github.com/kspace-trk/simple-cli-calculator-with-sdd#readme",
   "description": "",
   "devDependencies": {
+    "@stylistic/eslint-plugin": "^5.7.1",
     "@types/node": "^25.0.10",
+    "eslint": "^9.39.2",
+    "jiti": "^2.6.1",
+    "typescript-eslint": "^8.54.0",
     "vitest": "^4.0.18"
   }
 }
