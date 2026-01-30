@@ -41,9 +41,9 @@ export const validateInput = (input: string): ValidationResult => {
     return { isValid: false, message: "整数を入力してください" };
   }
 
-  // 範囲チェック (1〜4)
-  if (!isWithinRange({ num, min: 1, max: 4 })) {
-    return { isValid: false, message: "1から4の範囲で入力してください" };
+  // 範囲チェック (1〜999)
+  if (!isWithinRange({ num, min: 1, max: 999 })) {
+    return { isValid: false, message: "1から999の範囲で入力してください" };
   }
 
   return { isValid: true, message: "" };
