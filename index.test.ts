@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { isInteger, isWithinRange, validateInput } from "./index";
+import { describe, expect, it, vi } from "vitest";
+import { isInteger, isWithinRange, validateInput, getValidNumber } from "./index";
 
 describe("isInteger", () => {
   it("整数の場合は true を返す", () => {
@@ -63,5 +63,30 @@ describe("validateInput", () => {
     expect(validateInput("0")).toEqual({ isValid: false, message: "1から4の範囲で入力してください" });
     expect(validateInput("5")).toEqual({ isValid: false, message: "1から4の範囲で入力してください" });
     expect(validateInput("-1")).toEqual({ isValid: false, message: "1から4の範囲で入力してください" });
+  });
+});
+
+describe("getValidNumber", () => {
+  it("有効な値が入力されたら数値を返す", async () => {
+    const mockQuestion = vi.fn().mockResolvedValue("2");
+    const mockReadline = { question: mockQuestion } as any;
+
+    const result = await getValidNumber({ readline: mockReadline, prompt: "入力: " });
+
+    expect(result).toBe(2);
+    expect(mockQuestion).toHaveBeenCalledWith("入力: ");
+  });
+
+  it("無効な値の後に有効な値が入力されたら再入力を求める", async () => {
+    const mockQuestion = vi.fn()
+      .mockResolvedValueOnce("invalid")
+      .mockResolvedValueOnce("5")
+      .mockResolvedValueOnce("3");
+    const mockReadline = { question: mockQuestion } as any;
+
+    const result = await getValidNumber({ readline: mockReadline, prompt: "入力: " });
+
+    expect(result).toBe(3);
+    expect(mockQuestion).toHaveBeenCalledTimes(3);
   });
 });

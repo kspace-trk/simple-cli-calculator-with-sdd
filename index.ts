@@ -48,3 +48,22 @@ export const validateInput = (input: string): ValidationResult => {
 
   return { isValid: true, message: "" };
 };
+
+export const getValidNumber = async ({
+  readline,
+  prompt,
+}: {
+  readline: { question: (prompt: string) => Promise<string> };
+  prompt: string;
+}): Promise<number> => {
+  while (true) {
+    const input = await readline.question(prompt);
+    const result = validateInput(input);
+
+    if (result.isValid) {
+      return Number(input);
+    }
+
+    console.log(result.message);
+  }
+};
