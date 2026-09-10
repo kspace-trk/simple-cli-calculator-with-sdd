@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "test": "vitest run"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kspace-trk/simple-cli-calculator-with-sdd.git"
@@ -18,7 +15,6 @@
   "homepage": "https://github.com/kspace-trk/simple-cli-calculator-with-sdd#readme",
   "description": "",
   "devDependencies": {
-    "@types/node": "^25.0.10",
-    "vitest": "^4.0.18"
+    "@types/node": "^25.9.5"
   }
 }
