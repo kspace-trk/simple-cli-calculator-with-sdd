@@ -67,3 +67,13 @@ export const getValidNumber = async ({
     console.log(result.message);
   }
 };
+
+export const calculateSum = ({
+  num1,
+  num2,
+}: {
+  num1: number;
+  num2: number;
+}): number => {
+  return num1 + num2;
+};
