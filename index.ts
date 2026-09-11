@@ -6,3 +6,7 @@ export const createReadlineInterface = (rl: typeof readline): readline.Interface
     output: process.stdout,
   });
 };
+
+export const isInteger = (input: unknown): boolean => {
+  return Number.isInteger(input);
+};
