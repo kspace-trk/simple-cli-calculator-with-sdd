@@ -77,3 +77,22 @@ export const calculateSum = ({
 }): number => {
   return num1 + num2;
 };
+
+export const main = async (): Promise<void> => {
+  const rl = createReadlineInterface(readline);
+
+  try {
+    const num1 = await getValidNumber({ readline: rl, prompt: "一つ目の数字を入力してください......" });
+    const num2 = await getValidNumber({ readline: rl, prompt: "二つ目の数字を入力してください......" });
+
+    const sum = calculateSum({ num1, num2 });
+    console.log(`合計値は: ${sum} です！`);
+  } finally {
+    rl.close();
+  }
+};
+
+// node index.ts で直接実行した場合のみ起動する（import 時は起動しない）
+if (import.meta.main) {
+  await main();
+}
